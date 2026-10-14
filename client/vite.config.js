@@ -8,4 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(), // 2. Add it here
   ],
+  base: '/shopkart-labproject',
 })
