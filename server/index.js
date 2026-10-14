@@ -43,6 +43,8 @@ app.use(cors({
     }
   },
   credentials: true, // CRITICAL: allows HttpOnly cookies
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Middlewares

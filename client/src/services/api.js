@@ -8,6 +8,14 @@ const api = axios.create({
   timeout: 20000,
 });
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('shopkart_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 // ── Resource helpers ──────────────────────────────────────────────
 
 export const cartApi = {

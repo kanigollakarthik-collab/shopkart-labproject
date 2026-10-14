@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { CartProvider } from './context/CartContext';
@@ -20,7 +20,7 @@ function App() {
     <AuthProvider>
       <ToastProvider>
         <CartProvider>
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               {/* Public authentication routes */}
               <Route path="/login" element={<Login />} />
@@ -47,7 +47,7 @@ function App() {
               <Route path="/" element={<Navigate to="/products" replace />} />
               <Route path="*" element={<Navigate to="/products" replace />} />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </CartProvider>
       </ToastProvider>
     </AuthProvider>

@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       (error) => {
         const url = error.config?.url ?? '';
         if (error.response?.status === 401 && !PUBLIC_AUTH_ENDPOINTS.some((path) => url.includes(path))) {
+          localStorage.removeItem('shopkart_token');
           setUser(null);
           setStatus('unauthenticated');
         }
@@ -44,7 +45,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(
     async (email, password) => {
-      await api.post('/customers/login', { email, password });
+      const { data } = await api.post('/customers/login', { email, password });
+      if (data?.token) {
+        localStorage.setItem('shopkart_token', data.token);
+      }
       return refreshUser();
     },
     [refreshUser]
@@ -54,6 +58,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post('/customers/logout');
     } finally {
+      localStorage.removeItem('shopkart_token');
       setUser(null);
       setStatus('unauthenticated');
     }
